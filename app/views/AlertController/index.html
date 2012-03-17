@@ -2,20 +2,20 @@
 #{set title:'报警查看'/}
 <div class="container">
 	<div class="alert alert-info alert-block">
-		<select id="selectApp" class="span4">
+		<select id="selectApp" class="span4" style="margin-bottom:1px">
 		#{list items:appList, as:'app'}
 			<option val="${app.id}">${app.appName}</option>
 		#{/list}
 		</select>
-		<select id="selectType" class="span4">
+		<select id="selectType" class="span4" style="margin-bottom:1px">
 			<option val="ALL_TYPE">ALL_TYPE</option>
 			<option val="JVM_ALERT">JVM_ALERT</option>
 			<option val="IO_ALERT">IO_ALERT</option>
 			<option val="CPU_ALERT">CPU_ALERT</option>
 			<option val="HARD_ALERT">HARD_ALERT</option>
 		</select>
-		<input type="text" value="2012-01-01" id="datepicker" onclick="javascript:pickDate()"></input>
-		<a class="btn" href="#" align="center" onclick="javascript:getAlertData()">确定</a>
+		<input type="text" value="2012-01-01" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<a class="btn" onclick="javascript:getAlertData()">确定</a>
 	</div>
 	<div class="pagination">
 		<ul>
