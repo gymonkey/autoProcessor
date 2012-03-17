@@ -3,7 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                       AlertController.index
+
+GET		/autoProcess							AlertController.index
+POST	/autoProcess							AlertController.index
+
+GET		/autoProcess/viewAlert					AlertController.viewAlertData
+POST	/autoProcess/viewAlert					AlertController.viewAlertData
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
