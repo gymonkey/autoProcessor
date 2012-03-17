@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>故障处理</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="public/stylesheets/bootstrap.css">
+		<link rel="stylesheet" href="public/stylesheets/bootstrap-responsive.css">
+		<script src="public/javascripts/jquery-1.7.1.js"></script>
+		<script src="public/javascripts/bootstrap.js"></script>
+		<script src="public/javascripts/bootstrap-modal.js"></script>
+		<script src="public/javascripts/jquery.base64.min.js"></script>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/autoProcessor">Auto Processor</a>
+					<ul class="nav">
+						<li><a href="#">报警查看</a></li>
+						<li><a href="#">故障查看</a></li>
+						<li><a href="#">脚本执行情况</a></li>
+						<li><a href="#">任务情况</a></li>
+					</ul>
+					<ul id="longin_ul" class="nav pull-right">
+						<li><a href="javascript:show()">登录</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="content-container" class="container">
+ 		</div>
+		<div class="modal fade span4" id="loginModal">
+			<div class="modal-header">
+				<h3>登录</h3>
+			</div>
+			<div class="modal-body">
+				<p><input id="username" type="text" class="span3" placeholder="邮箱"></p>
+				<p><input id="password" type="password" class="span3" placeholder="密码"></p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn" href="javascript:login()">登录</a>
+				<a class="btn" href="#" data-dismiss="modal">取消</a>
+			</div>
+		</div>
+	</body>	
+</html>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#loginModal').modal({
+			show:false
+		});
+	});
+
+	function show(){
+		$('#loginModal').modal('toggle');
+	}
+
+	function login(){
+		var userName = $('#username').val();
+		var password = $('#password').val();
+		$.base64.is_unicode=false;
+		password = $.base64.encode(password);
+		var url = '/login'
+		$.ajax({
+			url:url,
+			data:{'userName':userName, 'password':password},
+			success:function(data){}
+		});
+	}
+</script>
