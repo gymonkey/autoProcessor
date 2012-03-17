@@ -14,13 +14,13 @@
 			<option val="CPU_ALERT">CPU_ALERT</option>
 			<option val="HARD_ALERT">HARD_ALERT</option>
 		</select>
-		<input type="text" value="2012-01-01" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
-		<a class="btn" onclick="javascript:getAlertData()">确定</a>
+		<input type="text" value="${queryDate}" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<a class="btn" onclick="javascript:getAlertData(1)">确定</a>
 	</div>
 	<div class="pagination">
 		<ul>
-			<li><a href="#">上一页</a></li>
-			<li><a href="#">下一页</a></li>
+			<li><a href="javascript:getAlertData(current - 1)">上一页</a></li>
+			<li><a href="javascript:getAlertData(current + 1)">下一页</a></li>
 		</ul>
 	</div>
 	<div>
@@ -35,26 +35,36 @@
 					<th>报警内容</th>
 				</tr>
 			</thead>
+			<tbody id="data_container">
+			</tbody>
 		</table>
 	</div>
 </div>
 <script type="text/javascript">
+	var current = 1;
+
+	$(document).ready(function(){
+		getAlertData(1);
+	});
+	
 	function pickDate(){
 		$('#datepicker').datepicker({
 			format:'yyyy-mm-dd'
 		});
 	}
 
-	function getAlertData(){
+	function getAlertData(page){
 		var appID = $('#selectApp').val();
 		var queryDate = $('#datepicker').val();
+		var type = $('#selectType').val();
 		var url = "/autoProcess/viewAlert";
 		$.ajax({
 			url:url,
-			data:{'appID':appID,'queryDate':queryDate},
+			data:{'appID':appID,'queryDate':queryDate,'type':type,'page':page},
 			success:function(data){
 				$('#data_container').empty();
 				$('#data_container').append(data);
+				current = page;
 			}
 		});
 	}
