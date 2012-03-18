@@ -24,14 +24,14 @@
 		</ul>
 	</div>
 	<div>
-		<table class="table-striped" style="width:940px">
+		<table class="table-striped" style="width:1170px">
 			<thead>
 				<tr>
-					<th>编号</th>
-					<th>服务器IP</th>
-					<th>服务器名</th>
-					<th>类型</th>
-					<th>报警时间</th>
+					<th class="span2">编号</th>
+					<th class="span3">服务器IP</th>
+					<th class="span3">服务器名</th>
+					<th class="span2">类型</th>
+					<th class="span2">报警时间</th>
 					<th>报警内容</th>
 				</tr>
 			</thead>
@@ -45,12 +45,13 @@
 
 	$(document).ready(function(){
 		getAlertData(1);
-	});
-	
-	function pickDate(){
 		$('#datepicker').datepicker({
 			format:'yyyy-mm-dd'
 		});
+	});
+	
+	function pickDate(){
+		$('#datepicker').datepicker('show');
 	}
 
 	function getAlertData(page){

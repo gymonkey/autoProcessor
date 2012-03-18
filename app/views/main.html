@@ -4,23 +4,23 @@
 	<head>
 		<title>故障处理-#{get 'title'/}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" href="public/stylesheets/bootstrap.css">
-		<link rel="stylesheet" href="public/stylesheets/bootstrap-responsive.css">
-		<link rel="stylesheet" href="public/stylesheets/datepicker.css">
-		<script src="public/javascripts/jquery-1.7.1.js"></script>
-		<script src="public/javascripts/bootstrap.js"></script>
-		<script src="public/javascripts/bootstrap-modal.js"></script>
-		<script src="public/javascripts/jquery.base64.min.js"></script>
-		<script src="public/javascripts/bootstrap-datepicker.js"></script>
+		<link rel="stylesheet" href="/public/stylesheets/bootstrap.css">
+		<link rel="stylesheet" href="/public/stylesheets/bootstrap-responsive.css">
+		<link rel="stylesheet" href="/public/stylesheets/datepicker.css">
+		<script src="/public/javascripts/jquery-1.7.1.js"></script>
+		<script src="/public/javascripts/bootstrap.js"></script>
+		<script src="/public/javascripts/bootstrap-modal.js"></script>
+		<script src="/public/javascripts/jquery.base64.min.js"></script>
+		<script src="/public/javascripts/bootstrap-datepicker.js"></script>
 	</head>
 	<body>
-		<div class="navbar">
+		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
 					<a class="brand" href="/autoProcess">Auto Processor</a>
 					<ul class="nav">
-						<li><a href="#">报警查看</a></li>
-						<li><a href="#">故障查看</a></li>
+						<li><a href="/autoProcess/alert">报警查看</a></li>
+						<li><a href="/autoProcess/fault">故障查看</a></li>
 						<li><a href="#">脚本执行情况</a></li>
 						<li><a href="#">任务情况</a></li>
 					</ul>
@@ -30,6 +30,9 @@
 				</div>
 			</div>
 		</div>
+		<br/>
+		<br/>
+		<br/>
 		#{doLayout /}
 		<div class="modal fade span4" id="loginModal">
 			<div class="modal-header">

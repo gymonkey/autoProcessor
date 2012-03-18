@@ -13,11 +13,10 @@ import play.mvc.Controller;
 public class AlertController extends Controller{
 
 	public static void index(){
-		String queryDate = null;
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, -1);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		queryDate = format.format(cal.getTime());
+		String queryDate = format.format(cal.getTime());
 		
 		List<App> appList = App.getAllApp();
 		
