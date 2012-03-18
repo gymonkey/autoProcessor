@@ -1,0 +1,73 @@
+#{extends 'main.html'/}
+#{set title:'故障查看'/}
+<div class="container">
+	<div class="alert alert-block alert-info">
+		<select id="selectApp" class="span4" style="margin-bottom:1px">
+		#{list items:appList,as:'app'}
+			<option value="${app.id}">${app.appName}</option>
+		#{/list}
+		</select>
+		<select id="selectType" class="span4" style="margin-bottom:1px">
+			<option value="ALL_TYPE">ALL_TYPE</option>
+			<option value="IO_FAULT">IO_FAULT</option>
+			<option value="JVM_FAULT">JVM_FAULT</option>
+			<option value="CPU_FAULT">CPU_FAULT</option>
+			<option value="HARD_FAULT">HARD_FAULT</option>
+		</select>
+		<input type="text" value="${queryDate}" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<a class="btn" href="javascript:viewFaultData(1)">确定</a>
+	</div>
+	<div class="pagination">
+		<ul>
+			<li><a href="javascript:viewFaultData(current - 1)">上一页</a></li>
+			<li><a href="javascript:viewFaultData(current + 1)">下一页</a></li>
+		</ul>
+	</div>
+	<div>
+		<table class="table-striped" style="width:1170px">
+			<thead>
+				<tr>
+					<th class="span2">编号</th>
+					<th class="span2">服务器IP</th>
+					<th class="span3">服务器名</th>
+					<th class="span2">收集日期</th>
+					<th class="span2">类型</th>
+					<th class="span2">状态</th>
+					<th>原因</th>
+				</tr>
+			</thead>
+			<tbody id="data_container">
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	var current = 1;
+	
+	$(document).ready(function(){
+		$('#datepicker').datepicker({
+			format:'yyyy-mm-dd'
+		});
+		viewFaultData(1);
+	});
+	
+	function pickDate(){
+		$('#datepicker').datepicker('show');
+	}
+	
+	function viewFaultData(page){
+		var url = "/autoProcess/viewFault"
+		var appID = $('#selectApp').val();
+		var type = $('#selectType').val();
+		var queryDate = $('#datepicker').val();
+		$.ajax({
+			url:url,
+			data:{'appID':appID,'type':type,'queryDate':queryDate,'page':page},
+			success:function(data){
+				$('#data_container').empty();
+				$('#data_container').append(data);
+				current = page;
+			}
+		});
+	}
+</script>
