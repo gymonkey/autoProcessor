@@ -1,26 +1,27 @@
 #{extends 'main.html'/}
-#{set title:'报警查看'/}
+#{set title:'执行情况'/}
+
 <div class="container">
 	<div class="alert alert-info alert-block">
 		<select id="selectApp" class="span4" style="margin-bottom:1px">
-		#{list items:appList, as:'app'}
-			<option val="${app.id}">${app.appName}</option>
+		#{list items:appList,as:'app'}
+			<option value="${app.id}">${app.appName}</option>
 		#{/list}
 		</select>
 		<select id="selectType" class="span4" style="margin-bottom:1px">
-			<option val="ALL_TYPE">ALL_TYPE</option>
-			<option val="JVM_ALERT">JVM_ALERT</option>
-			<option val="IO_ALERT">IO_ALERT</option>
-			<option val="CPU_ALERT">CPU_ALERT</option>
-			<option val="HARD_ALERT">HARD_ALERT</option>
+			<option value="ALL_TYPE">ALL_TYPE</option>
+			<option value="CPU_INFO">CPU_INFO</option>
+			<option value="IO_INFO">IO_INFO</option>
+			<option value="JVM_INFO">JVM_INFO</option>
+			<option value="HARD_INFO">HARD_INFO</option>
 		</select>
-		<input type="text" value="${queryDate}" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
-		<a class="btn" onclick="javascript:getAlertData(1)">确定</a>
+		<input id="datepicker" type="text" value="${queryDate}" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<a class="btn" href="javascript:viewInfoData(1)">确定</a>
 	</div>
 	<div class="pagination">
 		<ul>
-			<li><a href="javascript:getAlertData(current - 1)">上一页</a></li>
-			<li><a href="javascript:getAlertData(current + 1)">下一页</a></li>
+			<li><a href="javascript:viewInfoData(current - 1)">上一页</a></li>
+			<li><a href="javascript:viewInfoData(current + 1)">下一页</a></li>
 		</ul>
 	</div>
 	<div>
@@ -31,37 +32,38 @@
 					<th class="span2">服务器IP</th>
 					<th class="span3">服务器名</th>
 					<th class="span2">类型</th>
-					<th class="span2">报警时间</th>
-					<th>报警内容</th>
+					<th class="span2">收集日期</th>
+					<th>内容</th>
 				</tr>
 			</thead>
-			<tbody id="data_container">
+			<tbody id='data_container'>
 			</tbody>
 		</table>
 	</div>
 </div>
 <script type="text/javascript">
 	var current = 1;
-
+	
 	$(document).ready(function(){
-		getAlertData(1);
 		$('#datepicker').datepicker({
 			format:'yyyy-mm-dd'
 		});
+		viewInfoData(1);
 	});
 	
 	function pickDate(){
 		$('#datepicker').datepicker('show');
 	}
-
-	function getAlertData(page){
+	
+	function viewInfoData(page){
+		var url = "/autoProcess/infoData";
 		var appID = $('#selectApp').val();
-		var queryDate = $('#datepicker').val();
 		var type = $('#selectType').val();
-		var url = "/autoProcess/viewAlert";
+		var queryDate = $('#datepicker').val();
+		
 		$.ajax({
 			url:url,
-			data:{'appID':appID,'queryDate':queryDate,'type':type,'page':page},
+			data:{'appID':appID,'type':type,'queryDate':queryDate,'page':page},
 			success:function(data){
 				$('#data_container').empty();
 				$('#data_container').append(data);

@@ -15,6 +15,11 @@ POST	/autoProcess/fault						FaultController.index
 GET		/autoProcess/viewFault					FaultController.viewFaultData
 POST	/autoProcess/viewFault					FaultController.viewFaultData
 
+GET		/autoProcess/information				InfoController.index
+POST	/autoProcess/information				InfoController.index
+GET		/autoProcess/infoData					InfoController.viewInfoData
+POST	/autoProcess/infoData					InfoController.viewInfoData
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
