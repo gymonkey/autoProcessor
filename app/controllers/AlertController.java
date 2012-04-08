@@ -9,7 +9,10 @@ import models.Alert;
 import models.App;
 
 import play.mvc.Controller;
+import play.mvc.With;
+import util.AppManager;
 
+@With(SessionSetter.class)
 public class AlertController extends Controller{
 
 	public static void index(){
@@ -18,7 +21,7 @@ public class AlertController extends Controller{
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String queryDate = format.format(cal.getTime());
 		
-		List<App> appList = App.getAllApp();
+		List<App> appList = AppManager.getApps();
 		
 		render(queryDate, appList);
 	}

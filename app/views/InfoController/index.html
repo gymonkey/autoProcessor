@@ -15,7 +15,7 @@
 			<option value="JVM_INFO">JVM_INFO</option>
 			<option value="HARD_INFO">HARD_INFO</option>
 		</select>
-		<input id="datepicker" type="text" value="${queryDate}" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<input id="datepicker" type="text" value="${queryDate}" style="margin-bottom:1px"></input>
 		<a class="btn" href="javascript:viewInfoData(1)">确定</a>
 	</div>
 	<div class="pagination">
@@ -51,11 +51,10 @@
 		viewInfoData(1);
 	});
 	
-	function pickDate(){
-		$('#datepicker').datepicker('show');
-	}
-	
 	function viewInfoData(page){
+		if(page <= 0){
+			page = 1;
+		}
 		var url = "/autoProcess/infoData";
 		var appID = $('#selectApp').val();
 		var type = $('#selectType').val();

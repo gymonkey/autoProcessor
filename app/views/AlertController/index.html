@@ -14,7 +14,7 @@
 			<option val="CPU_ALERT">CPU_ALERT</option>
 			<option val="HARD_ALERT">HARD_ALERT</option>
 		</select>
-		<input type="text" value="${queryDate}" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<input type="text" value="${queryDate}" id="datepicker" style="margin-bottom:1px"></input>
 		<a class="btn" onclick="javascript:getAlertData(1)">确定</a>
 	</div>
 	<div class="pagination">
@@ -49,12 +49,11 @@
 			format:'yyyy-mm-dd'
 		});
 	});
-	
-	function pickDate(){
-		$('#datepicker').datepicker('show');
-	}
 
 	function getAlertData(page){
+		if(page <= 0){
+			page = 1;
+		}
 		var appID = $('#selectApp').val();
 		var queryDate = $('#datepicker').val();
 		var type = $('#selectType').val();

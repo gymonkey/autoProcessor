@@ -14,7 +14,7 @@
 			<option value="CPU_FAULT">CPU_FAULT</option>
 			<option value="HARD_FAULT">HARD_FAULT</option>
 		</select>
-		<input type="text" value="${queryDate}" id="datepicker" onclick="javascript:pickDate()" style="margin-bottom:1px"></input>
+		<input type="text" value="${queryDate}" id="datepicker" style="margin-bottom:1px"></input>
 		<a class="btn" href="javascript:viewFaultData(1)">确定</a>
 	</div>
 	<div class="pagination">
@@ -51,11 +51,10 @@
 		viewFaultData(1);
 	});
 	
-	function pickDate(){
-		$('#datepicker').datepicker('show');
-	}
-	
 	function viewFaultData(page){
+		if(page <= 0){
+			page = 1;
+		}
 		var url = "/autoProcess/viewFault"
 		var appID = $('#selectApp').val();
 		var type = $('#selectType').val();

@@ -20,6 +20,14 @@ POST	/autoProcess/information				InfoController.index
 GET		/autoProcess/infoData					InfoController.viewInfoData
 POST	/autoProcess/infoData					InfoController.viewInfoData
 
+GET		/autoProcess/job						JobController.index
+POST	/autoProcess/job						JobController.index
+GET		/autoProcess/viewJobData				JobController.viewData
+POST	/autoProcess/viewJobData				JobController.viewData
+
+GET		/autoProcess/login						LoginController.login
+POST	/autoProcess/login						LoginController.login
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

@@ -22,11 +22,25 @@
 						<li><a href="/autoProcess/alert">报警查看</a></li>
 						<li><a href="/autoProcess/fault">故障查看</a></li>
 						<li><a href="/autoProcess/information">脚本执行情况</a></li>
-						<li><a href="#">任务情况</a></li>
+						<li><a href="/autoProcess/job">任务情况</a></li>
 					</ul>
-					<ul id="longin_ul" class="nav pull-right">
+					#{if session.username == null}
+					<ul class="nav pull-right">
 						<li><a href="javascript:show()">登录</a></li>
 					</ul>
+					#{/if}
+					#{else}
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎你，${session.username}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">修改密码</a></li>
+								<li class="divider"></li>
+								<li><a href="#">退出</a></li>
+							</ul>
+						</li>
+					</ul>
+					#{/else}
 				</div>
 			</div>
 		</div>
@@ -65,11 +79,13 @@
 		var password = $('#password').val();
 		$.base64.is_unicode=false;
 		password = $.base64.encode(password);
-		var url = '/login'
+		var url = '/autoProcess/login'
 		$.ajax({
 			url:url,
-			data:{'userName':userName, 'password':password},
-			success:function(data){}
+			data:{'username':userName, 'passwd':password},
+			success:function(data){
+				window.location.href = data;
+			}
 		});
 	}
 </script>

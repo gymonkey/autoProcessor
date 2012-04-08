@@ -1,5 +1,7 @@
 package util;
 
+import java.util.List;
+
 import models.App;
 
 public class AppManager {
@@ -14,5 +16,9 @@ public class AppManager {
 	
 	public static int insertApp(App app){
 		return 0;
+	}
+	
+	public static List<App> getApps(){
+		return App.getAllApp();
 	}
 }

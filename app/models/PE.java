@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -26,4 +28,13 @@ public class PE extends Model{
 	@Required
 	@Column(name="passwd")
 	public String passwd;
+	
+	public static boolean validate(String username, String passwd){
+		List<PE> peList = PE.find("name=? and passwd=?", username, passwd).fetch();
+		if(peList == null || peList.size() == 0){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }
