@@ -1,0 +1,74 @@
+#{extends 'main.html'/}
+#{set title:'任务情况'/}
+
+<div class="container">
+	<div class="alert alert-info alert-block">
+		<select id="selectApp" class="span4" style="margin-bottom:1px">
+		#{list items:apps,as:'app'}
+			<option value="${app.id}">${app.appName}</option>
+		#{/list}
+		</select>
+		<select id="selectType" class="span4" style="margin-bottom:1px">
+			<option value="ALL_TYPE">ALL_TYPE</option>
+			<option value="IO_JOB">IO_JOB</option>
+			<option value="CPU_JOB">CPU_JOB</option>
+			<option value="JVM_JOB">JVM_JOB</option>
+			<option value="HARD_JOB">HARD_JOB</option>
+		</select>
+		<input id="datepicker" type="text" value="${yesterday}" onclick="javascript:pickDate()" style="margin-bottom:1px"/>
+		<a class="btn" onclick="javascript:viewData(1)">确定</a>
+	</div>
+	<div class="pagination">
+		<ul>
+			<li><a href="javascript:viewData(current - 1)">上一页</a><li>
+			<li><a href="javascript:viewData(current + 1)">下一页</a></li>
+		</ul>
+	</div>
+	<div>
+		<table class="table-striped" style="width:1170px">
+			<thead>
+				<tr>
+					<th class="span2">编号</th>
+					<th class="span2">服务器IP</th>
+					<th class="span3">服务器名</th>
+					<th class="span2">类型</th>
+					<th class="span4">结果</th>
+					<th class="span2">开始时间</th>
+					<th class="span2">结束时间</th>
+				</tr>
+			</thead>
+			<tbody id="data_container">
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+	var current = 1;
+	
+	$(document).ready(function(){
+		$('#datepicker').datepicker({
+			format:'yyyy-mm-dd'
+		});
+		viewData(1);
+	});
+	
+	function viewData(page){
+		if(page <= 0 ){
+			page = 1;
+		}
+		var url = "/autoProcess/viewJobData";
+		var appID = $('#selectApp').val();
+		var queryDate = $('#datepicker').val();
+		var type = $('#selectType').val();
+		$.ajax({
+			url:url,
+			data:{'appID':appID, 'queryDate':queryDate, 'type':type, 'page':page},
+			success:function(data){
+				$('#data_container').empty();
+				$('#data_container').append(data);
+				current = page;
+			}
+		});
+	}
+</script>
