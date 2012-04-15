@@ -38,8 +38,8 @@ public class Fault extends Model{
 	public Date collectDate;
 	
 	@Required
-	@Column(name="process")
-	public short process;
+	@Column(name="is_processed")
+	public boolean process;
 	
 	@Required
 	@Column(name="type")

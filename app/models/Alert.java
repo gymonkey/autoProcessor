@@ -41,6 +41,9 @@ public class Alert extends Model{
 	@Column(name="type")
 	public String type;
 	
+	@Column(name="isProcess")
+	public boolean isProcess;
+	
 	public static List<Alert> getAlert(long id, String queryDate, int page){
 		List<Alert> list = Alert.find("id=? and date(collectDate)=date(?)", id, queryDate).fetch(page, PAGE_LENGTH);
 		
@@ -59,5 +62,20 @@ public class Alert extends Model{
 		}else{
 			return list;
 		}
+	}
+	
+	public static List<Alert> getAlert(long interval){
+		long now = System.currentTimeMillis() / 1000;
+		
+		List<Alert> list = Alert.find("unix_timestamp(collectDate) > ? and unix_timestamp < ?", now - interval, now).fetch();
+		if(list == null){
+			return new ArrayList<Alert>(1);
+		}else{
+			return list;
+		}
+	}
+	
+	public static void updateIsProcess(long id, boolean isProcess){
+		Alert alert = Alert.findById(id);
 	}
 }

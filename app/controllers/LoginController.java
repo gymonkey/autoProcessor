@@ -19,5 +19,10 @@ public class LoginController extends Controller{
 			notFound();
 		}
 	}
+	
+	public static void logout(){
+		response.removeCookie("autoProcess.username");
+		renderTemplate("AlertController/index.html");
+	}
 
 }

@@ -25,6 +25,9 @@ POST	/autoProcess/job						JobController.index
 GET		/autoProcess/viewJobData				JobController.viewData
 POST	/autoProcess/viewJobData				JobController.viewData
 
+GET		/autoProcess/runScript					RunScriptController.index
+POST	/autoProcess/runScript					RunScriptController.index
+
 GET		/autoProcess/login						LoginController.login
 POST	/autoProcess/login						LoginController.login
 
