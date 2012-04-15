@@ -1,0 +1,13 @@
+#{extends 'main.html'/}
+#{set title:'远程执行脚本'/}
+
+<div class="container">
+	<div class="alert alert-info">
+		<input type="text" id="ip_input" class="span6" placeholder="服务器IP或服务器名" style="margin-bottom:1px"/>
+		<button type="button" class="btn">验证</button>
+		<button type="button" class="btn btn-primary" disabled="disabled">执行</button>
+	</div>
+	<div>
+		<textarea id="script_area" class="span12" style="height:500px"></textarea>
+	</div>
+</div>
