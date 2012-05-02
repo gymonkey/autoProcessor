@@ -4,10 +4,53 @@
 <div class="container">
 	<div class="alert alert-info">
 		<input type="text" id="ip_input" class="span6" placeholder="服务器IP或服务器名" style="margin-bottom:1px"/>
+		<!--<select id="typeSelector" style="margin-bottom:1px">
+			<option value="CPU_INFO">CPU_INFO</option>
+			<option value="IO_INFO">IO_INFO</option>
+			<option value="JVM_INFO">JVM_INFO</option>
+			<option value="HARD_INFO">HARD_INFO</option>
+		</select>-->
 		<button type="button" class="btn">验证</button>
-		<button type="button" class="btn btn-primary" disabled="disabled">执行</button>
+		<button type="button" class="btn btn-primary">执行</button>
 	</div>
 	<div>
 		<textarea id="script_area" class="span12" style="height:500px"></textarea>
 	</div>
 </div>
+<script>
+	function validate(){
+		var url = '';
+		var hostName = $('#ip_input').val();
+		$.ajax({
+			url:url,
+			data:{'hostName':hostName},
+			statusCode:{
+				200:function(){
+					alert('主机有效');
+				},
+				404:{
+					alert('主机无效');
+				}
+			}
+		});
+	}
+	
+	function run(){
+		var url = '';
+		var hostName = $('#ip_input').val();
+		var script = $('#script_area').val();
+		$.ajax({
+			url:url,
+			data:{'hostName':hostName,'script':script},
+			statusCode:{
+				200:function(content){
+					$('#script_area').empty();
+					$('#script_area').append(content);
+				},
+				404:function(){
+					alert('执行出错');
+				}
+			}
+		});
+	}
+</script>

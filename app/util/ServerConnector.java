@@ -17,6 +17,18 @@ public class ServerConnector {
 	
 	private static final String NOTIFY_CMD = "sh /home/tom/client.sh";
 	
+	public static final String IO_DETECT = "sh /home/tom/io_detect.sh";
+	
+	public static final String CPU_DETECT = "sh /home/tom/cpu_detect.sh";
+	
+	public static final String JVM_DETECT = "sh /home/tom/jvm_detect.sh";
+	
+	public static final String IO_PROCESS = "sh /home/tom/io_process.sh";
+	
+	public static final String CPU_PROCESS = "sh /home/tom/cpu_process.sh";
+	
+	public static final String JVM_PROCESS = "sh /home/tom/jvm_process.sh";
+	
 	private static final int RETRIES = 5;
 	
 	public static String runScriptOnServer(String hostName, String script) throws IOException{
@@ -49,8 +61,8 @@ public class ServerConnector {
 		return sb.toString();
 	}
 	
-	public static void notifyServer(String hostName) throws IOException{
-		runScriptOnServer(hostName, NOTIFY_CMD);
+	public static String notifyServer(String hostName) throws IOException{
+		return runScriptOnServer(hostName, NOTIFY_CMD);
 	}
 	
 	public static void main(String[] args) throws Exception{

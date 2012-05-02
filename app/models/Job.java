@@ -18,6 +18,10 @@ public class Job extends Model{
 	private static final int PAGE_SIZE = 15;
 	
 	@Required
+	@Column(name="app_id")
+	public long appId;
+	
+	@Required
 	@Column(name="host_ip")
 	public String hostIP;
 	

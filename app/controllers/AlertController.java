@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,5 +36,16 @@ public class AlertController extends Controller{
 		}
 		
 		renderTemplate("AlertController/alertData.html", alertList);
+	}
+	
+	public static void saveAlert(long appID, String hostName, String hostIP, String content){
+		Alert alert = new Alert();
+		alert.appId = appID;
+		alert.collectDate = new Date();
+		alert.hostIP = hostIP;
+		alert.hostName = hostName;
+		alert.info = content;
+		alert.isProcess = false;
+		alert.save();
 	}
 }

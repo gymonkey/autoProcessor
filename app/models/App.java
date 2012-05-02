@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,6 +34,19 @@ public class App extends Model{
 			return new ArrayList<App>(1);
 		}else{
 			return list;
+		}
+	}
+	
+	public static List<String> getMailBox(long appId){
+		App app = App.find("id = ?", appId).first();
+		if(app != null){
+			List<String> mailBoxes = new LinkedList<String>();
+			for(String mailBox : app.relatedMailBox.split(";")){
+				mailBoxes.add(mailBox);
+			}
+			return mailBoxes;
+		}else{
+			return null;
 		}
 	}
 }

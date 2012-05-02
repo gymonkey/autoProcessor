@@ -9,7 +9,7 @@ import play.jobs.Job;
 
 public class JPAHelper extends Job{
 
-	public static final BlockingQueue<Model> modelQueue = new LinkedBlockingQueue<Model>();
+	private static final BlockingQueue<Model> modelQueue = new LinkedBlockingQueue<Model>();
 	
 	public void doJob() throws Exception{
 		while(true){
@@ -25,6 +25,10 @@ public class JPAHelper extends Job{
 				break;
 			}
 		}
+	}
+	
+	public static void offer(Model model){
+		modelQueue.offer(model);
 	}
 	
 }
