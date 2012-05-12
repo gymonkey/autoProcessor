@@ -7,11 +7,12 @@ import java.util.concurrent.CountDownLatch;
 import play.mvc.Controller;
 import pojo.Command;
 import util.CmdExecutor;
+import util.InstenceGetter;
 import util.ServerConnector;
 
 public class RunScriptController extends Controller{
 	
-	private static CmdExecutor cmdExecutor;
+	private static CmdExecutor cmdExecutor = InstenceGetter.cmdExecutor;
 	
 	public static void index(){
 		render();
@@ -32,7 +33,7 @@ public class RunScriptController extends Controller{
 		cmdExecutor.offer(cmd);
 		try{
 			latch.await();
-			Controller.renderText(cmd.getResult());
+			Controller.renderText(cmd.getResult().replaceAll("\n", "<br/>"));
 		}catch(Exception e){
 			notFound();
 		}

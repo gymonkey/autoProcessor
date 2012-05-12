@@ -27,7 +27,7 @@ public class CmdExecutor implements Shutdownable{
 			public void run(){
 				while(isStarted){
 					try{
-						final Command cmd = cmdQueue.poll(1000, TimeUnit.SECONDS);
+						final Command cmd = cmdQueue.poll(10, TimeUnit.SECONDS);
 						if(cmd == null){
 							continue;
 						}else{
@@ -35,7 +35,7 @@ public class CmdExecutor implements Shutdownable{
 								public void run(){
 									try{
 										String result = ServerConnector.runScriptOnServer(cmd.getHostName(), cmd.getCmd());
-										cmd.setCmd(result);
+										cmd.setResult(result);
 										
 										Logger.info("Run Script On %s Succeed", cmd.getHostName());
 									}catch(Exception e){
@@ -53,6 +53,7 @@ public class CmdExecutor implements Shutdownable{
 				}
 			}
 		});
+		thread.setName("cmdExecutor-thread");
 	}
 	
 	public synchronized void start(){
@@ -74,7 +75,7 @@ public class CmdExecutor implements Shutdownable{
 	}
 	
 	public void offer(Command cmd){
-		if(!isStarted){
+		if(isStarted){
 			cmdQueue.offer(cmd);
 		}
 	}

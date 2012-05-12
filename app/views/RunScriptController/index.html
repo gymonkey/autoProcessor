@@ -10,16 +10,34 @@
 			<option value="JVM_INFO">JVM_INFO</option>
 			<option value="HARD_INFO">HARD_INFO</option>
 		</select>-->
-		<button type="button" class="btn">验证</button>
-		<button type="button" class="btn btn-primary">执行</button>
+		<button type="button" class="btn" onclick="javascript:validate()">验证</button>
+		<button type="button" class="btn btn-primary" onclick="javascript:run()">执行</button>
 	</div>
 	<div>
 		<textarea id="script_area" class="span12" style="height:500px"></textarea>
 	</div>
 </div>
+<div class="modal fade" id="resultModal">
+	<div class="modal-header">
+		<p><strong>执行结果</strong></p>
+	</div>
+	<div class="modal-body">
+		<div id="resultContent">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a class="btn" onclick="javascript:$('#resultModal').modal('hide')">关闭</a>
+	</div>
+</div>
 <script>
+	$(document).ready(function(){
+		$('#resultModal').modal({
+			show:false
+		});
+	});
+
 	function validate(){
-		var url = '';
+		var url = '/autoProcess/validate';
 		var hostName = $('#ip_input').val();
 		$.ajax({
 			url:url,
@@ -28,7 +46,7 @@
 				200:function(){
 					alert('主机有效');
 				},
-				404:{
+				404:function(){
 					alert('主机无效');
 				}
 			}
@@ -36,7 +54,7 @@
 	}
 	
 	function run(){
-		var url = '';
+		var url = '/autoProcess/acturalRun';
 		var hostName = $('#ip_input').val();
 		var script = $('#script_area').val();
 		$.ajax({
@@ -44,8 +62,9 @@
 			data:{'hostName':hostName,'script':script},
 			statusCode:{
 				200:function(content){
-					$('#script_area').empty();
-					$('#script_area').append(content);
+					$('#resultContent').empty();
+					$('#resultContent').append(content);
+					$('#resultModal').modal('show');
 				},
 				404:function(){
 					alert('执行出错');
